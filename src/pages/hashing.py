@@ -44,8 +44,8 @@ def sha512(word):
 def write():
     st.title("Here, you can chose a hashing algorithm and calculate the hash of a word")
     choice = st.selectbox("Choose the algorithm :", hash_algorithms())
-    word = st.text_input("Enter your word here", "Type here ...")
-    if st.button("Calculate"):
+    word = st.text_input("Enter your word here")
+    if st.button("Calculate Hash"):
         if choice == "blake2b":
             st.info(blake2b(word))
         elif choice == "blake2s":
