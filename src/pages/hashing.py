@@ -41,24 +41,28 @@ def sha512(word):
     return hl.sha512(word.encode('UTF-8')).hexdigest()
 
 
+def calc_hash(choice, word):
+    if choice == "blake2b":
+        return blake2b(word)
+    elif choice == "blake2s":
+        return blake2s(word)
+    elif choice == "md5":
+        return md5(word)
+    elif choice == "sha1":
+        return sha1(word)
+    elif choice == "sha224":
+        return sha224(word)
+    elif choice == "sha256":
+        return sha256(word)
+    elif choice == "sha384":
+        return sha384(word)
+    elif choice == "sha512":
+        return sha512(word)
+
+
 def write():
     st.title("Here, you can chose a hashing algorithm and calculate the hash of a word")
     choice = st.selectbox("Choose the algorithm :", hash_algorithms())
     word = st.text_input("Enter your word here")
     if st.button("Calculate Hash"):
-        if choice == "blake2b":
-            st.info(blake2b(word))
-        elif choice == "blake2s":
-            st.info(blake2s(word))
-        elif choice == "md5":
-            st.info(md5(word))
-        elif choice == "sha1":
-            st.info(sha1(word))
-        elif choice == "sha224":
-            st.info(sha224(word))
-        elif choice == "sha256":
-            st.info(sha256(word))
-        elif choice == "sha384":
-            st.info(sha384(word))
-        elif choice == "sha512":
-            st.info(sha512(word))
+        st.info(calc_hash(choice,word))
