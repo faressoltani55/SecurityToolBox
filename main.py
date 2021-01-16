@@ -5,10 +5,11 @@ import utils.display as udisp
 import src.pages.home
 import src.pages.hashing
 import src.pages.cracking
+import src.pages.encoding
 
 MENU = {
     "Home": src.pages.home,
-    # "Coding / Decoding a Message": src.pages.coding,
+    "Coding / Decoding a message": src.pages.encoding,
     "Hashing a message": src.pages.hashing,
     "Cracking a hash": src.pages.cracking
 }
