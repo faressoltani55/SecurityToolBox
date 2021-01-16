@@ -14,7 +14,7 @@ def write():
     algo = st.selectbox("Choose the algorithm :", hash_algorithms())
     dictionary = st.selectbox("Choose the Dictionary :", ["Small", "Medium", "Big", "Giant"])
     script_dir = os.path.dirname(__file__)
-    rel_path = "../../utils/"+dictionary+".txt"
+    rel_path = "../../utils/dictionaries/"+dictionary+".txt"
     path = os.path.join(script_dir, rel_path)
     wordlist = open(path, 'r').readlines()
     hash_a = st.text_input("Enter your hash here")
