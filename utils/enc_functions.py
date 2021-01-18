@@ -1,9 +1,6 @@
 import codecs
 import base64
 
-<<<<<<< Updated upstream
-def get_standard_text_encodings():
-=======
 ASCII_BINARY_ENCODINGS=[
     'base64',
     'base32',
@@ -12,13 +9,13 @@ ASCII_BINARY_ENCODINGS=[
     'base85'
 ]
 
-ASCII_BINARY_FUNCTION=[
-    {'base64': 'b64'},
-    {'base32': 'b32'},
-    {'base16': 'b16'},
-    {'Ascii85': 'a85'},
-    {'base85': 'b85'}
-]
+ASCII_BINARY_FUNCTION={
+    'base64': 'b64',
+    'base32': 'b32',
+    'base16': 'b16',
+    'Ascii85': 'a85',
+    'base85': 'b85'
+}
 
 """def get_standard_text_encodings():
 >>>>>>> Stashed changes
@@ -31,13 +28,13 @@ ASCII_BINARY_FUNCTION=[
 """
 
 def encode(message, encoding):
-    function = ASCII_BINARY_FUNCTION['encoding'] + 'encode'
-    return base64.function(message).decode('utf-8')
+    function = ASCII_BINARY_FUNCTION[encoding] + 'encode'
+    return getattr(base64, function)(bytes(message, encoding='utf-8')).decode('utf-8')
 
 
 def decode(message, encoding):
-    function = ASCII_BINARY_FUNCTION['encoding'] + 'decode'
-    return base64.function(message).decode('utf-8')
+    function = ASCII_BINARY_FUNCTION[encoding] + 'decode'
+    return getattr(base64, function)(message).decode('utf-8')
 
 def encode_text(encoding, text):
     """ convert unicoded strings into any encodings supported by the current version of Python """
@@ -51,10 +48,9 @@ def decode_text(encoding, text):
 
     #decoded_text = bytes(text, encoding='utf-8').decode(encoding, errors="ignore")
 
-<<<<<<< Updated upstream
     #decoded_text = codecs.decode(base64_decode(text), encoding)
     return base64.b64decode(text)
-=======
+
     # decoded_text = codecs.decode(base64_decode(text), encoding)
     return base64.b64decode(text).decode('utf-8')
->>>>>>> Stashed changes
+
