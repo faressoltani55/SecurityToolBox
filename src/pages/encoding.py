@@ -20,14 +20,10 @@ def write():
 
     input_text = st.text_area("Write your message here")
 
-    encoding_type = st.selectbox("Start by choosing the type of encoding to deal with: ",
-                                 ["Standard text encoding", "Base64", "URL"])
-
+   # encoding_type = st.selectbox("Start by choosing the type of encoding to deal with: ",["Standard text encoding", "Base64", "URL"])
+    encoding_type = st.selectbox("Start by choosing the type of Binary-ASCII encoding: ",  )
     if encoding_type == "Standard text encoding":
         encoding = st.selectbox("Pick the encoding: ", enc.get_standard_text_encodings())
         result = process_input(encoding, input_text)
         st.text(result)
-    elif encoding_type == "Base64":
-        return
-    elif encoding_type == "URL":
-        return
+
