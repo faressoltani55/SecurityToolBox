@@ -1,7 +1,7 @@
 import utils.symmetric.algorithms as sym_utils
 import streamlit as st
 
-from src.logic.symmetric.functions import get_algorithm, decrypt, upload_secret_key
+from src.logic.symmetric.functions import get_algorithm, decrypt
 
 
 def write():
