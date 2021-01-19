@@ -5,7 +5,7 @@ This is a toolbox that offers different encrypting, hashing, encoding functional
 
 1. Clone the github project :
   - Click on Clone, select and copy the HTTPS link.
-  - Use in your CLI the command `git clone <https://github.com/faressoltani55/SecurityToolBox.git>`
+  - Use in your CLI the command `git clone https://github.com/faressoltani55/SecurityToolBox.git`
 
 2. Install the requirements :
   - open the project directory
