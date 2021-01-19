@@ -2,10 +2,9 @@ import pathlib
 
 import streamlit as st
 
-
 def write():
-    st.title("Welcome to HaFa Security")
-    st.subheader("Your tools to encrypt and crack for an amazing \"hacker\" experience")
+    st.title("Welcome to Security Tool Box")
+    st.text("The needed tools for basic security measures and protection")
     st.markdown(
         """
         <div style="width:100%;height:0;padding-bottom:56%;position:relative;">
@@ -14,3 +13,4 @@ def write():
         """,
         unsafe_allow_html=True
     )
+
