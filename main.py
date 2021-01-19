@@ -29,8 +29,8 @@ def local_css(file_name):
 def main():
 
     local_css("style.css")
-    st.sidebar.title("Navigate yourself...")
-    menu_selection = st.sidebar.radio("Chose your option...", list(MENU.keys()))
+    st.sidebar.text("Navigate yourself...")
+    menu_selection = st.sidebar.radio("", list(MENU.keys()))
 
     menu = MENU[menu_selection]
 
