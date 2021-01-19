@@ -2,6 +2,7 @@ import pathlib
 
 import streamlit as st
 
+
 def write():
     st.title("Welcome to Security Tool Box")
     st.text("The needed tools for basic security measures and protection")
@@ -13,4 +14,3 @@ def write():
         """,
         unsafe_allow_html=True
     )
-

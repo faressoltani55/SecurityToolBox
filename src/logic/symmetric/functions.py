@@ -14,52 +14,58 @@ ALGORITHM_PADDING = 256
 SCRYPT_BLOCK_SIZE_PARAMETER = 8
 SCRYPT_PARALLELIZATION_PARAMETER = 1
 SCRYPT_COST_PARAMETER = 2 ** 14
-SYM_KEY_PATH = 'utils/symmetric/keys/secret.key'
+SYM_KEY_PATH = 'utils/symmetric/secret.key'
+SALT_SIZE = 16
+
 
 def reset_key():
     try:
         os.remove(SYM_KEY_PATH)
     except OSError as error:
-        print(error)
-        return False
-    return True
+        print("Secret key already removed")
+
 
 def get_key_sizes(algorithm):
     return SYM_ALGORITHMS_PROPS[algorithm]['key_sizes']
 
+
 def generate_secret_key(size, password):
+    try:
+        salt = os.urandom(SALT_SIZE)
+        # derive key
+        kdf = Scrypt(salt=salt, length=int(size / 8), n=SCRYPT_COST_PARAMETER, r=SCRYPT_BLOCK_SIZE_PARAMETER,
+                 p=SCRYPT_PARALLELIZATION_PARAMETER)
+        key = kdf.derive(bytes(password, encoding='utf-8'))
 
-    salt = os.urandom(16)
-    # derive key
-    kdf = Scrypt(salt = salt, length = int(size / 8), n = SCRYPT_COST_PARAMETER, r = SCRYPT_BLOCK_SIZE_PARAMETER, p = SCRYPT_PARALLELIZATION_PARAMETER)
-    key = kdf.derive(bytes(password, encoding='utf-8'))
-
-    with open(SYM_KEY_PATH, 'wb') as f:
-        f.write(salt+key)
-    return key
-
-def upload_secret_key(uploaded_file):
-    if uploaded_file is not None:
-        bytes_data = uploaded_file.read()
         with open(SYM_KEY_PATH, 'wb') as f:
-            f.write(bytes_data)
-        return True
-    else:
-        return False
+            f.write(salt + key)
+        return key
+    except:
+        return None
+
+# def upload_secret_key(uploaded_file):
+#     if uploaded_file is not None:
+#         bytes_data = uploaded_file.read()
+#         with open(SYM_KEY_PATH, 'wb') as f:
+#             f.write(bytes_data)
+#         return True
+#     else:
+#         return False
+
 
 def verify_secret_key(password):
-
     try:
         with open(SYM_KEY_PATH, "rb") as file:
             salt_and_key = file.read()
     except FileNotFoundError:
         return False, "No secret key found"
 
-    salt = salt_and_key[:16]
-    key = salt_and_key[16:]
+    salt = salt_and_key[:SALT_SIZE]
+    key = salt_and_key[SALT_SIZE:]
     length = len(key)
 
-    kdf = Scrypt(salt = salt, length = length, n = SCRYPT_COST_PARAMETER, r = SCRYPT_BLOCK_SIZE_PARAMETER, p = SCRYPT_PARALLELIZATION_PARAMETER)
+    kdf = Scrypt(salt=salt, length=length, n=SCRYPT_COST_PARAMETER, r=SCRYPT_BLOCK_SIZE_PARAMETER,
+                 p=SCRYPT_PARALLELIZATION_PARAMETER)
     try:
         kdf.verify(bytes(password, encoding='utf-8'), key)
     except InvalidKey:
@@ -68,14 +74,6 @@ def verify_secret_key(password):
         return False, "Error was encountered during the verification process", None
 
     return True, "Password successfully verified", key
-
-
-def get_key():
-    try:
-        with open(SYM_KEY_PATH, "rb") as file:
-            return file.read()
-    except:
-        return None
 
 
 def download_secret_key(key):
@@ -106,27 +104,26 @@ def encrypt(algorithm, key, message):
 
 
 def get_algorithm(cipher_text_encoded):
-
     cipher_text_decoded = base64.b64decode(cipher_text_encoded)
     algorithm_unpadder = padding.PKCS7(ALGORITHM_PADDING).unpadder()
-    algorithm = algorithm_unpadder.update(cipher_text_decoded[:int(ALGORITHM_PADDING / 8)]) + algorithm_unpadder.finalize()
+    algorithm = algorithm_unpadder.update(
+        cipher_text_decoded[:int(ALGORITHM_PADDING / 8)]) + algorithm_unpadder.finalize()
 
     return algorithm.decode('utf-8')
 
 
-def algorithm_strength(algorithm):
-    return  SYM_ALGORITHMS_PROPS[algorithm]['strength']
+def get_algorithm_security(algorithm):
+    return SYM_ALGORITHMS_PROPS[algorithm]['security']
 
 
 def decrypt(password, cipher_text_encoded):
-
     cipher_text_decoded = base64.b64decode(cipher_text_encoded)
 
     algorithm = get_algorithm(cipher_text_encoded)
     algo = getattr(algorithms, algorithm)
-    block_size_bytes = int(SYM_ALGORITHMS_PROPS[algorithm]['block_size']/8)
-    algorithm_padding_bytes = int(ALGORITHM_PADDING/8)
-    iv = cipher_text_decoded[algorithm_padding_bytes:algorithm_padding_bytes+block_size_bytes]
+    block_size_bytes = int(SYM_ALGORITHMS_PROPS[algorithm]['block_size'] / 8)
+    algorithm_padding_bytes = int(ALGORITHM_PADDING / 8)
+    iv = cipher_text_decoded[algorithm_padding_bytes:algorithm_padding_bytes + block_size_bytes]
     cipher_text = cipher_text_decoded[algorithm_padding_bytes + block_size_bytes:]
 
     verified, info_message, key = verify_secret_key(password)

@@ -26,4 +26,3 @@ def write():
     result = process_input(message, encoding)
     if result is not None:
         st.text(result)
-
