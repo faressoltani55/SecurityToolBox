@@ -22,30 +22,13 @@ MENU = {
     "Asymmetric Decryption / Verifying" : src.pages.asymmetric_decryption
 }
 
+def local_css(file_name):
+    with open(file_name) as f:
+        st.markdown('<style>{}</style>'.format(f.read()), unsafe_allow_html=True)
 
 def main():
-    st.markdown(
-        """
-        <style>
-        .reportview-container {
-            background-color: black;
-            color: lime
-        }
-       .css-1aumxhk {
-            background-color: #011839;
-            background-image: none;
-            color: lime
-        }
-        .st-bw {
-            color: lime
-        }
-        .css-145kmo2 {
-            color: white
-        }
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
+
+    local_css("style.css")
     st.sidebar.title("Navigate yourself...")
     menu_selection = st.sidebar.radio("Chose your option...", list(MENU.keys()))
 
