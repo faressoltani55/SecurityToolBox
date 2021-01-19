@@ -1,5 +1,5 @@
 # SecurityToolBox
-This is a toolbox that offers different encrypting, hashing, encoding functionalities. I used Streamlit for the UI.
+This is a toolbox that offers different encrypting, hashing, encoding functionalities. We used Streamlit for the UI.
 
 ***Here is a manual of how to run it***
 
