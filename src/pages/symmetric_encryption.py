@@ -15,7 +15,7 @@ def write():
 
     algorithm = st.selectbox("Choose the symmetric encryption algorithm:", SYM_ALGORITHMS)
     if algorithm_strength(algorithm) == 0:
-        st.warning('This algorithm is not secure! Please keep that in mind.')
+        st.error('This algorithm is not secure! Please keep that in mind.')
     key_size = st.selectbox("Choose the size of the key to be generated:", get_key_sizes(algorithm))
     st.text("Please enter a password to generate the key: ")
     pwd = st.text_input("Enter a password", type="password")

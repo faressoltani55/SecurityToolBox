@@ -8,7 +8,7 @@ import src.pages.cracking
 import src.pages.encoding
 import src.pages.symmetric_encryption
 import src.pages.symmetric_decryption
-import src.pages.asymmetric_decryption
+import src.pages.asymmetric_encryption
 import src.pages.asymmetric_decryption
 
 MENU = {
@@ -18,7 +18,7 @@ MENU = {
     "Cracking a hash": src.pages.cracking,
     "Symmetric Encryption": src.pages.symmetric_encryption,
     "Symmetric Decryption": src.pages.symmetric_decryption,
-    "Asymmetric Encryption / Signing" : src.pages.asymmetric_decryption,
+    "Asymmetric Encryption / Signing" : src.pages.asymmetric_encryption,
     "Asymmetric Decryption / Verifying" : src.pages.asymmetric_decryption
 }
 
