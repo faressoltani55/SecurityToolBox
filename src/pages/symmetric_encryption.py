@@ -1,6 +1,6 @@
-import utils.symmetric.algorithms as sym_utils
 import streamlit as st
 
+from src.logic.symmetric.constants import SYM_ALGORITHMS
 from src.logic.symmetric.functions import generate_secret_key, get_key_sizes, download_secret_key, encrypt, \
     reset_key, algorithm_strength
 
@@ -13,7 +13,7 @@ def write():
 
     message = st.text_input("Enter your message here")
 
-    algorithm = st.selectbox("Choose the symmetric encryption algorithm:", sym_utils.SYM_ALGORITHMS)
+    algorithm = st.selectbox("Choose the symmetric encryption algorithm:", SYM_ALGORITHMS)
     if algorithm_strength(algorithm) == 0:
         st.warning('This algorithm is not secure! Please keep that in mind.')
     key_size = st.selectbox("Choose the size of the key to be generated:", get_key_sizes(algorithm))

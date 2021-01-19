@@ -8,7 +8,7 @@ from cryptography.hazmat.primitives import padding
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.kdf.scrypt import Scrypt
 
-from utils.symmetric.algorithms import SYM_ALGORITHMS_PROPS
+from src.logic.symmetric.constants import SYM_ALGORITHMS_PROPS
 
 ALGORITHM_PADDING = 256
 SCRYPT_BLOCK_SIZE_PARAMETER = 8

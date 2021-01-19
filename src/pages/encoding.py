@@ -1,5 +1,7 @@
-import utils.enc_functions as enc
 import streamlit as st
+
+from src.logic.encoding.constants import ASCII_BINARY_ENCODINGS
+import src.logic.encoding.functions as enc
 
 
 def process_input(message, encoding):
@@ -20,7 +22,8 @@ def write():
 
     message = st.text_area("Write your message here")
 
-    encoding = st.selectbox("Start by choosing the type of Binary-ASCII encoding: ", enc.ASCII_BINARY_ENCODINGS)
+    encoding = st.selectbox("Start by choosing the type of Binary-ASCII encoding: ", ASCII_BINARY_ENCODINGS)
     result = process_input(message, encoding)
-    st.text(result)
+    if result is not None:
+        st.text(result)
 
