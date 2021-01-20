@@ -122,7 +122,7 @@ def sign(private_key, choice, message):
 def verify():
     with open("utils/asymmetric/signing/sign.algo", "r+") as file:
         algo = file.read()
-    public_key = get_public()
+    public_key = get_public("signing")
     if algo == "RSA":
         public_key.verify(
             get_signature(),
