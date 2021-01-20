@@ -19,7 +19,6 @@ pytz~=2020.5
 toml~=0.10.2
 astor~=0.8.1
 smmap~=3.0.4
-pywin32~=300
 setuptools~=50.3.2
 ipython~=7.19.0
 pydeck~=0.5.0
